@@ -33,20 +33,18 @@
         /* Expanded card styles */
         .card-expanded {
             position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            width: 95vw !important;
-            max-width: 1600px !important;
+            inset: 0 !important;
+            width: 90vw !important;
             height: 90vh !important;
-            min-height: 90vh !important;
-            max-height: 90vh !important;
+            max-width: 1600px !important;
+            margin: auto !important;
             z-index: 1000 !important;
             aspect-ratio: auto !important;
         }
         
         .card-expanded .flip-card-inner {
             height: 100% !important;
+            transform: rotateY(180deg) !important;
         }
         
         .card-expanded .flip-card-back {
@@ -72,33 +70,6 @@
         .overlay.active {
             display: block;
         }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            overflow-y: auto;
-        }
-        .modal.active {
-            display: block;
-        }
-        .modal-content {
-            background: linear-gradient(to bottom right, #991b1b, #065f46);
-            margin: 5% auto;
-            padding: 2rem;
-            border: 4px solid #fbbf24;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 800px;
-            color: white;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-red-900 p-8">
@@ -116,19 +87,6 @@
 
         <div id="calendar-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
             <!-- Calendar will be generated here -->
-        </div>
-
-        <!-- Modal for detailed content -->
-        <div id="detailModal" class="modal">
-            <div class="modal-content">
-                <div class="flex justify-between items-start mb-4">
-                    <h2 id="modalTitle" class="text-3xl font-bold text-yellow-300"></h2>
-                    <button onclick="closeModal()" class="text-4xl text-yellow-300 hover:text-yellow-100 leading-none">&times;</button>
-                </div>
-                <div id="modalBody" class="text-white space-y-4">
-                    <!-- Content will be inserted here -->
-                </div>
-            </div>
         </div>
 
         <div class="text-center text-white bg-green-800 bg-opacity-50 rounded-lg p-6 backdrop-blur-sm">
@@ -176,7 +134,41 @@
                     <p class="mb-4">We're already eyeing up other processes for the same treatment. If you spot something repetitive and manual on your team, let us know – there might be an AI upgrade in it for you too.</p>
                 `
             },
-            { day: 2, title: "Treasury Automation Apps", who: "Matt Wake", date: "Tue 02 Dec", unlockDate: "2025-12-02" },
+            { 
+                day: 2, 
+                title: "Treasury Automation Apps", 
+                who: "Matt Wake", 
+                date: "Tue 02 Dec", 
+                unlockDate: "2025-12-02",
+                hasDetail: true,
+                detailedContent: `
+                    <h3 class="text-3xl font-bold text-yellow-300 mb-4">Two Problems. One Solution. Pure AI Magic.</h3>
+                    
+                    <p class="text-lg text-yellow-200 mb-4">Today we're tackling not one, but two finance processes that were crying out for an upgrade: FX Proposals and HSBC Receivables Finance. Let's dig in.</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">Problem 1: FX Proposals – The Macro Bottleneck 🚫</h3>
+                    <p class="mb-4">The old way? A macro sitting on the X-drive that only one person could run at a time. Want to run multiple reports simultaneously? Tough luck – you'd have to queue up like it's the only coffee machine in the office.</p>
+                    
+                    <h4 class="text-xl font-bold text-yellow-200 mb-2">The Fix:</h4>
+                    <p class="mb-4">Moving FX Proposals into the Finance Gateway via AI automation has completely changed the game. Now multiple team members can run different reports at the same time. The process is fully automated, so manual errors have been eliminated. And the output? Beautifully clean and easy to review.</p>
+                    
+                    <p class="text-lg font-semibold text-green-300 mb-6">Main win: Ease of Use ✅</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">Problem 2: HSBC Receivables Finance – The Excel Nightmare 😱</h3>
+                    <p class="mb-4">Previously, this one was painful. Four separate debtors' ledgers needed comparing week-on-week, tracking new invoices, credit notes, and cleared items. The method? One ledger at a time, in Excel, with formula after formula after formula. One slip-up in a formula, and your whole analysis is compromised.</p>
+                    
+                    <h4 class="text-xl font-bold text-yellow-200 mb-2">The Fix:</h4>
+                    <p class="mb-4">Our AI app now handles all four ledgers automatically. The user simply uploads the prior week and current week debtors for each ledger – the app does the rest. New invoices, credit notes, cleared items – all identified and presented clearly. No manual formulas. No room for error.</p>
+                    
+                    <p class="text-lg font-semibold text-green-300 mb-6">The Main Win: Zero Risk of Manual Error ✅</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">What We've Gained</h3>
+                    <p class="mb-4">Between these two process improvements, we've freed up hours of time every single week. But more importantly, we've eliminated bottlenecks (goodbye, queue for macros), removed access friction, and taken human error completely out of the equation. That's the kind of upgrade that makes everyone's week easier.</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">The Takeaway</h3>
+                    <p class="mb-4">When repetitive, formula-heavy work can be automated, it should be. Your team will thank you. 🤝</p>
+                `
+            },
             { day: 3, title: "Cash & Bank", who: "Isey", date: "Wed 03 Dec", unlockDate: "2025-12-03" },
             { day: 4, title: "SSC - Deduction Management / Supplier Interaction", who: "Nora Leighton", date: "Thu 04 Dec", unlockDate: "2025-12-04" },
             { day: 5, title: "Automating Audit Request Tracking & Accuracy Checks", who: "Isobela Mcmillan", date: "Fri 05 Dec", unlockDate: "2025-12-05" },
@@ -200,19 +192,6 @@
             return today >= unlock;
         }
 
-        function openModal(dayNum) {
-            const dayData = days.find(d => d.day === dayNum);
-            if (dayData && dayData.detailedContent) {
-                document.getElementById('modalTitle').textContent = `Day ${dayData.day}: ${dayData.title}`;
-                document.getElementById('modalBody').innerHTML = dayData.detailedContent;
-                document.getElementById('detailModal').classList.add('active');
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('detailModal').classList.remove('active');
-        }
-
         function expandCard(cardElement) {
             if (expandedCard) {
                 collapseCard();
@@ -233,14 +212,6 @@
 
         // Close card when clicking overlay
         document.getElementById('overlay').onclick = collapseCard;
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('detailModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
 
         function createCalendar() {
             const grid = document.getElementById('calendar-grid');
