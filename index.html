@@ -1,0 +1,119 @@
+import React, { useState } from 'react';
+import { Gift, Star } from 'lucide-react';
+
+export default function FinanceAdventCalendar() {
+  const [openDays, setOpenDays] = useState({});
+
+  const days = [
+    { day: 1, title: "Daily & Monthly Reporting Forecasting Stock", who: "Nick Leigh", date: "Mon 01 Dec", unlockDate: "2025-12-01" },
+    { day: 2, title: "Treasury Automation Apps", who: "Matt Wake", date: "Tue 02 Dec", unlockDate: "2025-12-02" },
+    { day: 3, title: "Cash & Bank", who: "Isey", date: "Wed 03 Dec", unlockDate: "2025-12-03" },
+    { day: 4, title: "SSC - Deduction Management / Supplier Interaction", who: "Nora Leighton", date: "Thu 04 Dec", unlockDate: "2025-12-04" },
+    { day: 5, title: "Automating Audit Request Tracking & Accuracy Checks", who: "Isobela Mcmillan", date: "Fri 05 Dec", unlockDate: "2025-12-05" },
+    { day: 6, title: "Account Credits", who: "Will Oakland", date: "Tue 09 Dec", unlockDate: "2025-12-09" },
+    { day: 7, title: "Slick Rec, Consignment & Concession Apps", who: "Jemima", date: "Wed 10 Dec", unlockDate: "2025-12-10" },
+    { day: 8, title: "Automating Statutory Packs with AI", who: "Isobela Mcmillan", date: "Thu 11 Dec", unlockDate: "2025-12-11" },
+    { day: 9, title: "FX Hedging", who: "Kim Gallichan", date: "Fri 12 Dec", unlockDate: "2025-12-12" },
+    { day: 10, title: "Beauty Translations", who: "Ben Moulding", date: "Mon 15 Dec", unlockDate: "2025-12-15" },
+    { day: 11, title: "Leases", who: "Mary", date: "Tue 16 Dec", unlockDate: "2025-12-16" },
+    { day: 12, title: "Master Data Automation", who: "Leah", date: "Wed 17 Dec", unlockDate: "2025-12-17" },
+    { day: "Final", title: "CFO Performance Dashboard", who: "Aaron Brakeman", date: "Thu 18 Dec", unlockDate: "2025-12-18", isFinal: true }
+  ];
+
+  const isUnlocked = (unlockDate) => {
+    const today = new Date();
+    const unlock = new Date(unlockDate);
+    today.setHours(0, 0, 0, 0);
+    unlock.setHours(0, 0, 0, 0);
+    return today >= unlock;
+  };
+
+  const toggleDay = (day, unlockDate) => {
+    if (!isUnlocked(unlockDate)) {
+      return;
+    }
+    setOpenDays(prev => ({
+      ...prev,
+      [day]: !prev[day]
+    }));
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-red-900 p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-white mb-4 drop-shadow-lg">
+            🎄 12 Days of Finance Christmas 🎄
+          </h1>
+          <p className="text-xl text-green-100">
+            Celebrating Our 2025 Achievements - December Edition
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+          {days.map(({ day, title, who, date, unlockDate, isFinal }) => {
+            const unlocked = isUnlocked(unlockDate);
+            return (
+              <div
+                key={day}
+                className={`relative aspect-square ${unlocked ? 'cursor-pointer' : 'cursor-not-allowed'} ${isFinal ? 'md:col-span-2' : ''}`}
+                onClick={() => toggleDay(day, unlockDate)}
+                title={unlocked ? 'Click to open!' : `Unlocks on ${date}`}
+              >
+                <div className={`absolute inset-0 transition-all duration-500 ${
+                  openDays[day] ? 'rotate-y-180' : ''
+                }`}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transform: openDays[day] ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                }}>
+                  {/* Front of card */}
+                  <div className={`absolute inset-0 ${isFinal ? 'bg-gradient-to-br from-yellow-500 to-yellow-700' : 'bg-gradient-to-br from-green-600 to-green-800'} ${!unlocked ? 'opacity-40 grayscale' : ''} rounded-lg shadow-2xl border-4 border-yellow-400 flex flex-col items-center justify-center p-4`}
+                  style={{ backfaceVisibility: 'hidden' }}>
+                    <Gift className="w-12 h-12 text-yellow-300 mb-2" />
+                    <div className="text-6xl font-bold text-white mb-2">{day}</div>
+                    {unlocked ? (
+                      <Star className="w-6 h-6 text-yellow-300" />
+                    ) : (
+                      <div className="text-4xl">🔒</div>
+                    )}
+                    {isFinal && unlocked && <div className="text-xs text-white mt-2 font-bold">🎊 FINALE 🎊</div>}
+                  </div>
+
+                  {/* Back of card */}
+                  <div className={`absolute inset-0 ${isFinal ? 'bg-gradient-to-br from-yellow-600 to-yellow-800' : 'bg-gradient-to-br from-red-600 to-red-800'} rounded-lg shadow-2xl border-4 border-yellow-400 flex flex-col items-center justify-center p-4 overflow-hidden`}
+                  style={{ 
+                    backfaceVisibility: 'hidden',
+                    transform: 'rotateY(180deg)'
+                  }}>
+                    <div className="text-xs font-bold text-yellow-300 mb-1 text-center">
+                      {date}
+                    </div>
+                    <div className="text-xs font-semibold text-white mb-2 text-center leading-tight">
+                      {title}
+                    </div>
+                    <div className="text-xs text-green-100 text-center leading-snug font-semibold">
+                      👤 {who}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="text-center text-white bg-green-800 bg-opacity-50 rounded-lg p-6 backdrop-blur-sm">
+          <p className="text-lg mb-2">
+            Click each gift to reveal the achievement and team member! 🎁
+          </p>
+          <p className="text-sm text-green-200">
+            Days unlock on their scheduled dates - locked days show a 🔒
+          </p>
+          <p className="text-sm text-green-200 mt-1">
+            Thank you to everyone who made these projects successful in 2025!
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
