@@ -281,25 +281,24 @@
                             }
                             ${item.isFinal && unlocked ? '<div class="text-xs text-white mt-2 font-bold">🎊 FINALE 🎊</div>' : ''}
                         </div>
-                        <div class="flip-card-back ${backColor} shadow-2xl border-4 border-yellow-400 flex flex-col items-center justify-center p-4">
+                        <div class="flip-card-back ${backColor} shadow-2xl border-4 border-yellow-400 flex flex-col items-start justify-start p-8">
                             <button onclick="event.stopPropagation(); collapseCard();" class="absolute top-4 right-4 text-4xl text-yellow-300 hover:text-yellow-100 leading-none z-10" style="display: none;">×</button>
-                            <div class="text-center">
+                            <div class="w-full text-left">
                                 <div class="text-2xl font-bold text-yellow-300 mb-3">
                                     ${item.date}
                                 </div>
                                 <div class="text-xl font-semibold text-white mb-4 leading-tight">
                                     ${item.title}
                                 </div>
-                                <div class="text-lg text-green-100 leading-snug font-semibold mb-4">
+                                <div class="text-lg text-green-100 leading-snug font-semibold mb-6">
                                     👤 ${item.who}
                                 </div>
                                 ${item.hasDetail ? `
-                                    <button onclick="event.stopPropagation(); openModal(${item.day})" 
-                                            class="mt-4 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold py-3 px-6 rounded text-base">
-                                        Read Full Story 📖
-                                    </button>
+                                    <div class="text-left space-y-4">
+                                        ${item.detailedContent}
+                                    </div>
                                 ` : ''}
-                                <div class="mt-6 text-sm text-green-200">
+                                <div class="mt-6 text-sm text-green-200 text-center">
                                     Click anywhere outside to close
                                 </div>
                             </div>
