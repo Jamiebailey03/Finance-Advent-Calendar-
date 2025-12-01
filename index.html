@@ -173,7 +173,7 @@
                     <p class="mb-4">This isn't just about saving time (though that's brilliant). It's about removing risk, improving quality, and freeing our team to add real value. That's the kind of present that lasts all year round.</p>
                     
                     <h3 class="text-2xl font-bold text-yellow-300 mb-3">What's Next?</h3>
-                    <p>We're already eyeing up other processes for the same treatment. If you spot something repetitive and manual on your team, let us know – there might be an AI upgrade in it for you too.</p>
+                    <p class="mb-4">We're already eyeing up other processes for the same treatment. If you spot something repetitive and manual on your team, let us know – there might be an AI upgrade in it for you too.</p>
                 `
             },
             { day: 2, title: "Treasury Automation Apps", who: "Matt Wake", date: "Tue 02 Dec", unlockDate: "2025-12-02" },
@@ -200,10 +200,13 @@
             return today >= unlock;
         }
 
-        function openModal(day, title, content) {
-            document.getElementById('modalTitle').textContent = `Day ${day}: ${title}`;
-            document.getElementById('modalBody').innerHTML = content;
-            document.getElementById('detailModal').classList.add('active');
+        function openModal(dayNum) {
+            const dayData = days.find(d => d.day === dayNum);
+            if (dayData && dayData.detailedContent) {
+                document.getElementById('modalTitle').textContent = `Day ${dayData.day}: ${dayData.title}`;
+                document.getElementById('modalBody').innerHTML = dayData.detailedContent;
+                document.getElementById('detailModal').classList.add('active');
+            }
         }
 
         function closeModal() {
@@ -291,7 +294,7 @@
                                     👤 ${item.who}
                                 </div>
                                 ${item.hasDetail ? `
-                                    <button onclick="event.stopPropagation(); openModal(${item.day}, '${item.title.replace(/'/g, "\\'")}', \`${item.detailedContent}\`)" 
+                                    <button onclick="event.stopPropagation(); openModal(${item.day})" 
                                             class="mt-4 bg-yellow-500 hover:bg-yellow-400 text-red-900 font-bold py-3 px-6 rounded text-base">
                                         Read Full Story 📖
                                     </button>
