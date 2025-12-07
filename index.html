@@ -320,6 +320,45 @@
                     <p class="mb-4">That's the definition of a Christmas win. 🎅✨</p>
                 `
             },
+            { 
+                day: "⭐", 
+                title: "Cyber Performance - Special Shout Out", 
+                who: "Beauty Retail Team", 
+                date: "Mon 08 Dec", 
+                unlockDate: "2025-12-07",
+                isSpecial: true,
+                hasDetail: true,
+                detailedContent: `
+                    <h3 class="text-3xl font-bold text-yellow-300 mb-4">🎄 The Cyber Win: When Numbers Build Confidence (And Decisions Get Made Fast) 💪</h3>
+                    
+                    <p class="text-lg text-yellow-200 mb-4"><strong>Real-Time Numbers. Real-Time Decisions. Real Results.</strong></p>
+                    
+                    <p class="mb-4">This cyber period has been our most successful from a reporting standpoint – and we wanted to shout about it. Here's the thing: funding and GP accuracy have never been stronger, and that's meant the trade teams could make decisions as things were happening with genuine confidence in the numbers. That's not just efficiency; that's competitive advantage.</p>
+                    
+                    <p class="mb-4">A massive thank you to the entire Beauty Retail Team for making this happen. Here's how they did it:</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">The Challenge: 600-1,500 Invoices Per Month (Manual Send) 😤</h3>
+                    <p class="mb-4">Retail Beauty's promotional activity with brands is relentless – and brilliant for business. The downside? Around 600 invoices a month in normal periods, rocketing to close to 1,500 during peak months. Every. Single. One. Was being sent manually.</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">The Solution: Automatic Invoice Send in Sage 🚀</h3>
+                    <p class="mb-4">Working closely with the change request team, we rolled out an automated solution in September. Here's the magic: the moment an invoice posts to the ledger, it automatically sends to the customer the following morning. No manual intervention. No delays. No bottlenecks.</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">What This Actually Means</h3>
+                    <p class="mb-4">Instead of spending hours sending invoices one by one, the team has freed up significant time to do work that actually drives value. Analysis, forecasting, strategic support – the stuff that matters. The automation handles the mechanical task; the team handles the thinking.</p>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">The Real Win: Cyber Period Performance 📊</h3>
+                    <p class="mb-4">This isn't just about saving time. During cyber, this accuracy and speed meant:</p>
+                    
+                    <ul class="list-disc list-inside mb-4 space-y-2">
+                        <li><strong>Real-time reporting</strong> – The meat trade teams had numbers they could trust, updated and reliable</li>
+                        <li><strong>Fast decision-making</strong> – With confidence in the data, teams made decisions in real-time rather than waiting for manual reconciliation</li>
+                        <li><strong>Peak capacity</strong> – We handled 1,500 invoices in peak months without breaking a sweat</li>
+                    </ul>
+                    
+                    <h3 class="text-2xl font-bold text-yellow-300 mb-3">The Takeaway</h3>
+                    <p class="mb-4">When your systems work this smoothly, your teams can focus on what they do best. Big ups to Beauty Retail for showing us what's possible. 🎅</p>
+                `
+            },
             { day: 6, title: "Account Credits", who: "Will Oakland", date: "Tue 09 Dec", unlockDate: "2025-12-09" },
             { day: 7, title: "Slick Rec, Consignment & Concession Apps", who: "Jemima", date: "Wed 10 Dec", unlockDate: "2025-12-10" },
             { day: 8, title: "Automating Statutory Packs with AI", who: "Isobela Mcmillan", date: "Thu 11 Dec", unlockDate: "2025-12-11" },
@@ -367,7 +406,7 @@
             days.forEach(item => {
                 const unlocked = isUnlocked(item.unlockDate);
                 const cardDiv = document.createElement('div');
-                cardDiv.className = `flip-card aspect-square ${item.isFinal ? 'md:col-span-2' : ''} ${unlocked ? 'cursor-pointer' : 'cursor-not-allowed'}`;
+                cardDiv.className = `flip-card aspect-square ${item.isFinal ? 'md:col-span-2' : ''} ${item.isSpecial ? 'md:col-span-2' : ''} ${unlocked ? 'cursor-pointer' : 'cursor-not-allowed'}`;
                 cardDiv.title = unlocked ? 'Click to open!' : `Unlocks on ${item.date}`;
                 
                 if (unlocked) {
@@ -383,13 +422,17 @@
                     };
                 }
 
-                const frontColor = item.isFinal ? 'bg-gradient-to-br from-yellow-500 to-yellow-700' : 'bg-gradient-to-br from-green-600 to-green-800';
-                const backColor = item.isFinal ? 'bg-gradient-to-br from-yellow-600 to-yellow-800' : 'bg-gradient-to-br from-red-600 to-red-800';
+                const frontColor = item.isFinal ? 'bg-gradient-to-br from-yellow-500 to-yellow-700' : 
+                                   item.isSpecial ? 'bg-gradient-to-br from-purple-600 to-blue-600' :
+                                   'bg-gradient-to-br from-green-600 to-green-800';
+                const backColor = item.isFinal ? 'bg-gradient-to-br from-yellow-600 to-yellow-800' : 
+                                  item.isSpecial ? 'bg-gradient-to-br from-purple-700 to-blue-800' :
+                                  'bg-gradient-to-br from-red-600 to-red-800';
                 const lockStyle = unlocked ? '' : 'opacity-40 grayscale';
                 
                 cardDiv.innerHTML = `
                     <div class="flip-card-inner">
-                        <div class="flip-card-front ${frontColor} ${lockStyle} shadow-2xl border-4 border-yellow-400 flex flex-col items-center justify-center p-4">
+                        <div class="flip-card-front ${frontColor} ${lockStyle} shadow-2xl border-4 ${item.isSpecial ? 'border-purple-400' : 'border-yellow-400'} flex flex-col items-center justify-center p-4">
                             <svg class="w-12 h-12 text-yellow-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
                             </svg>
@@ -399,8 +442,9 @@
                                 '<div class="text-4xl">🔒</div>'
                             }
                             ${item.isFinal && unlocked ? '<div class="text-xs text-white mt-2 font-bold">🎊 FINALE 🎊</div>' : ''}
+                            ${item.isSpecial && unlocked ? '<div class="text-xs text-white mt-2 font-bold">⭐ SPECIAL ⭐</div>' : ''}
                         </div>
-                        <div class="flip-card-back ${backColor} shadow-2xl border-4 border-yellow-400 flex flex-col items-start justify-start p-8">
+                        <div class="flip-card-back ${backColor} shadow-2xl border-4 ${item.isSpecial ? 'border-purple-400' : 'border-yellow-400'} flex flex-col items-start justify-start p-8">
                             <button onclick="event.stopPropagation(); collapseCard();" class="absolute top-4 right-4 text-4xl text-yellow-300 hover:text-yellow-100 leading-none z-10" style="display: none;">×</button>
                             <div class="w-full text-left">
                                 <div class="text-2xl font-bold text-yellow-300 mb-3">
